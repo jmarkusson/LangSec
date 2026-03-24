@@ -23,11 +23,17 @@ public class ShoppingCart {
 
         while(!product.equals("quit")) {
 
-            if (wallet.getBalance() < Store.getProductPrice(product)) {
+            boolean isWithdrawn = wallet.safeWithdraw(Store.getProductPrice(product));
+            if (!isWithdrawn) {
                System.out.println("Not enough credits.");
                break;   
             }
-            wallet.setBalance(wallet.getBalance() - Store.getProductPrice(product));
+
+            // if (wallet.getBalance() < Store.getProductPrice(product)) {
+            //    System.out.println("Not enough credits.");
+            //    break;   
+            // }
+            // wallet.setBalance(wallet.getBalance() - Store.getProductPrice(product));
             pocket.addProduct(product);
 
             print(wallet, pocket);
