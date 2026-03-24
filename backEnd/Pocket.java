@@ -2,6 +2,8 @@ package backEnd;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
@@ -27,8 +29,12 @@ public class Pocket {
      * @param  product           product name to add to the pocket (e.g. "car")
      */
     public void addProduct(String product) throws Exception {
-        this.file.seek(this.file.length());
-        this.file.writeBytes(product+'\n'); 
+        FileChannel channel = this.file.getChannel();
+        try (FileLock lock = channel.lock()){
+            this.file.seek(this.file.length());
+            this.file.writeBytes(product+'\n');
+        } 
+        
     }
 
     /**

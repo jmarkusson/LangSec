@@ -2,6 +2,8 @@ package backEnd;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 
 public class Wallet {
     /**
@@ -52,9 +54,15 @@ public class Wallet {
      * @return true if the wallet has enough balance, false otherwise
      */
     public boolean safeWithdraw(int valueToWithdraw) throws Exception {
-        if (this.getBalance() < valueToWithdraw)
-            return false;
-        this.setBalance(this.getBalance() - valueToWithdraw);
-        return true;
+        FileChannel channel = this.file.getChannel();
+
+        try (FileLock lock = channel.lock()){
+                int balance = this.getBalance();
+            if (balance < valueToWithdraw)
+                return false;
+            this.setBalance(balance - valueToWithdraw);
+            return true;
+            }
+        
     }
 }
