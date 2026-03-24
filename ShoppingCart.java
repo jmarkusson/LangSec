@@ -28,6 +28,12 @@ public class ShoppingCart {
                - add the name of the product to the pocket file.
                - print the new balance.
             */
+            if (wallet.getBalance() < Store.getProductPrice(product)) {
+               System.out.println("Not enough credits.");
+               break;
+            } 
+            wallet.setBalance(wallet.getBalance() - Store.getProductPrice(product));
+            pocket.addProduct(product);
 
             // Just to print everything again...
             print(wallet, pocket);
