@@ -45,4 +45,16 @@ public class Wallet {
     public void close() throws Exception {
 	this.file.close();
     }
+
+    /**
+     * Checks if the wallet has enough balance to withdraw the given value
+     * @param valueToWithdraw the amount to withdraw
+     * @return true if the wallet has enough balance, false otherwise
+     */
+    public boolean safeWithdraw(int valueToWithdraw) throws Exception {
+        if (this.getBalance() < valueToWithdraw)
+            return false;
+        this.setBalance(this.getBalance() - valueToWithdraw);
+        return true;
+    }
 }
