@@ -22,15 +22,14 @@ public class ShoppingCart {
         String product = scan(scanner);
 
         while(!product.equals("quit")) {
-            
+
             if (wallet.getBalance() < Store.getProductPrice(product)) {
                System.out.println("Not enough credits.");
-               break;
-            } 
+               break;   
+            }
             wallet.setBalance(wallet.getBalance() - Store.getProductPrice(product));
             pocket.addProduct(product);
 
-            // Just to print everything again...
             print(wallet, pocket);
             product = scan(scanner);
         }
