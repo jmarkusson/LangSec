@@ -34,7 +34,6 @@ public class Pocket {
             this.file.seek(this.file.length());
             this.file.writeBytes(product+'\n');
         } 
-        
     }
 
     /**

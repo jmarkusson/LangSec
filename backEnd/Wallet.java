@@ -54,15 +54,13 @@ public class Wallet {
      * @return true if the wallet has enough balance, false otherwise
      */
     public boolean safeWithdraw(int valueToWithdraw) throws Exception {
-        FileChannel channel = this.file.getChannel();
-
-        try (FileLock lock = channel.lock()){
+        try (FileChannel channel = this.file.getChannel();
+             FileLock lock = channel.lock()){
                 int balance = this.getBalance();
             if (balance < valueToWithdraw)
                 return false;
             this.setBalance(balance - valueToWithdraw);
             return true;
             }
-        
     }
 }

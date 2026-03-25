@@ -29,11 +29,12 @@ public class ShoppingCart {
                break;   
             }
 
-            // if (wallet.getBalance() < Store.getProductPrice(product)) {
-            //    System.out.println("Not enough credits.");
-            //    break;   
-            // }
-            // wallet.setBalance(wallet.getBalance() - Store.getProductPrice(product));
+            // Original unsafe code:
+            /* if (wallet.getBalance() < Store.getProductPrice(product)) {
+               System.out.println("Not enough credits.");
+               break;   
+            }
+            wallet.setBalance(wallet.getBalance() - Store.getProductPrice(product)); */
             pocket.addProduct(product);
 
             print(wallet, pocket);
